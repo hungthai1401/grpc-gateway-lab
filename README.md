@@ -2,7 +2,7 @@
 
 ### gRPC server
 ```shell
-cd ../server
+cp proto ../server
 cd server
 docker build -t grpc-server:latest .
 ```
