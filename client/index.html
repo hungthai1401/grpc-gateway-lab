@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>gRPC Gateway Client</title>
+    <style>
+        .section {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h2>User Operations</h2>
+        <button onclick="createUser()">Create User</button>
+        <button onclick="getUsers()">Get All Users</button>
+        <button onclick="updateUser()">Update User</button>
+        <button onclick="deleteUser()">Delete User</button>
+    </div>
+
+    <div class="section">
+        <h2>Article Operations</h2>
+        <button onclick="createArticle()">Create Article</button>
+        <button onclick="getArticles()">Get All Articles</button>
+        <button onclick="updateArticle()">Update Article</button>
+        <button onclick="deleteArticle()">Delete Article</button>
+    </div>
+
+    <pre id="response"></pre>
+
+    <script>
+        // User Operations
+        async function getUsers() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/users');
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function createUser() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'John Doe',
+                        email: 'john@example.com'
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function updateUser() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/users/1', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: 1,
+                        name: 'John Updated',
+                        email: 'john.updated@example.com'
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function deleteUser() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/users/1', {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Article Operations
+        async function getArticles() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/articles');
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function createArticle() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/articles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: 'Sample Article',
+                        content: 'This is a sample article content',
+                        author: 'John Doe'
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function updateArticle() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/articles/1', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: 1,
+                        title: 'Updated Article',
+                        content: 'This is an updated article content',
+                        author: 'John Doe'
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function deleteArticle() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/articles/1', {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

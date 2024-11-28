@@ -1,0 +1,9 @@
+version: '3'
+
+grpc:
+  listen: 'tcp://0.0.0.0:50051'
+  proto:
+    - 'proto/*.proto'
+
+server:
+  command: 'php server.php'

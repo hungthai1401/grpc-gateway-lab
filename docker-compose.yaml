@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  grpc-gateway:
+    image: grpc-gateway:latest
+    container_name: grpc-gateway
+    depends_on:
+      - grpc-server
+    ports:
+      - "8080:8080"
+
+  grpc-server:
+    image: grpc-server:latest
+    container_name: grpc-server
+    ports:
+      - "50051:50051"
+
+  client:
+    image: nginx:alpine
+    container_name: client
+    volumes:
+      - ./client:/usr/share/nginx/html
+    ports:
+      - "8081:80"

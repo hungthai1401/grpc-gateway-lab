@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package user;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option php_namespace = "User";
+option php_metadata_namespace = "GPBMetadata\\User";
+option go_package = "gateway/proto";
+
+service UserService {
+  rpc GetUsers (google.protobuf.Empty) returns (GetUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  }
+
+  rpc CreateUser (User) returns (User) {
+    option (google.api.http) = {
+      post: "/v1/users"
+      body: "*"
+    };
+  }
+
+  rpc UpdateUser (User) returns (User) {
+    option (google.api.http) = {
+      put: "/v1/users/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse) {
+    option (google.api.http) = {
+      delete: "/v1/users/{id}"
+    };
+  }
+}
+
+message GetUsersResponse {
+  repeated User users = 1;
+}
+
+message User {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message DeleteUserRequest {
+  int32 id = 1;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+}

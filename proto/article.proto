@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package article;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option php_namespace = "Article";
+option php_metadata_namespace = "GPBMetadata\\Article";
+option go_package = "gateway/proto";
+
+service ArticleService {
+  rpc GetArticles (google.protobuf.Empty) returns (GetArticlesResponse) {
+    option (google.api.http) = {
+      get: "/v1/articles"
+    };
+  }
+
+  rpc CreateArticle (Article) returns (Article) {
+    option (google.api.http) = {
+      post: "/v1/articles"
+      body: "*"
+    };
+  }
+
+  rpc UpdateArticle (Article) returns (Article) {
+    option (google.api.http) = {
+      put: "/v1/articles/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteArticle (DeleteArticleRequest) returns (DeleteArticleResponse) {
+    option (google.api.http) = {
+      delete: "/v1/articles/{id}"
+    };
+  }
+}
+
+message GetArticlesResponse {
+  repeated Article articles = 1;
+}
+
+message Article {
+  int32 id = 1;
+    string title = 2;
+    string content = 3;
+    string author = 4;
+    google.protobuf.Timestamp created_at = 5;
+}
+
+message DeleteArticleRequest {
+  int32 id = 1;
+}
+
+message DeleteArticleResponse {
+  bool success = 1;
+}
