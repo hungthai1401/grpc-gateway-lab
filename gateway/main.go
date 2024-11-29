@@ -43,12 +43,12 @@ func main() {
 
 	// Register User service
 	if err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, mux, "grpc-server:50051", opts); err != nil {
-		log.Fatalf("Failed to start Example HTTP gateway: %v", err)
+		log.Fatalf("Failed to start User HTTP gateway: %v", err)
 	}
 
 	// Register Article service
 	if err := pb.RegisterArticleServiceHandlerFromEndpoint(ctx, mux, "grpc-server:50051", opts); err != nil {
-		log.Fatalf("Failed to start User HTTP gateway: %v", err)
+		log.Fatalf("Failed to start Article HTTP gateway: %v", err)
 	}
 
 	handler := corsMiddleware(mux)
